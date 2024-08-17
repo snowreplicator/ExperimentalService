@@ -15,6 +15,7 @@ import ru.experimentalservice.ViewModel.UsersViewModel;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -49,6 +50,50 @@ public class UserServiceImpl implements UserService {
         user = userRepository.save(user);
 
         return UserViewModel.fromDomain(user);
+    }
+
+
+    // первый пользователь добавиться в базу, второй нет
+    // причина они пошли в разных транзакциях
+    @Override
+    public UsersViewModel createUserTest_v1() {
+        User user1 = createUser1();
+        User user2 = createUser2();
+
+        userRepository.save(user1);
+        throwArithmeticException();
+        userRepository.save(user2);
+
+        return getUsers();
+    }
+
+    // никто не добавиться в базу, все происходит в рамках одной транзации -  @Transactional
+    // выкинется исключение и произойдет откат
+    @Transactional
+    @Override
+    public UsersViewModel createUserTest_v2() {
+        User user1 = createUser1();
+        User user2 = createUser2();
+
+        userRepository.save(user1);
+        throwArithmeticException();
+        userRepository.save(user2);
+
+        return getUsers();
+    }
+
+    private User createUser1() {
+        return new User(0L,"user_1_" + UUID.randomUUID(),"first user");
+    }
+
+    private User createUser2() {
+        return new User(0L,"user_2_" + UUID.randomUUID(),"second user");
+    }
+
+    private void throwArithmeticException() {
+        int x = 1;
+        int y = 0;
+        int z = x/y;
     }
 
 }

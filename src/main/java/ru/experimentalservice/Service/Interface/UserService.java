@@ -10,4 +10,8 @@ public interface UserService {
 
     UserViewModel createUser(CreateUserDTO createPrintFormDTO);
 
+    UsersViewModel createUserTest_v1();
+
+    UsersViewModel createUserTest_v2();
+
 }

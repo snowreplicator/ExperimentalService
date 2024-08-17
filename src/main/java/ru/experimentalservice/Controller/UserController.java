@@ -42,4 +42,16 @@ public class UserController {
         return new ResponseEntity<>(userService.createUser(createUserDTO), HttpStatus.OK);
     }
 
+    @Operation(summary = "Тест добавления 2х пользователей", description = "Попытка добавить 2х пользователей с исключением без транзакции")
+    @PostMapping(path = "/createUserTest_v1")
+    public ResponseEntity<UsersViewModel> createUserTest_v1() {
+        return new ResponseEntity<>(userService.createUserTest_v1(), HttpStatus.OK);
+    }
+
+    @Operation(summary = "Тест добавления 2х пользователей", description = "Попытка добавить 2х пользователей с исключением в рамках одной транзации")
+    @PostMapping(path = "/createUserTest_v2")
+    public ResponseEntity<UsersViewModel> createUserTest_v2() {
+        return new ResponseEntity<>(userService.createUserTest_v2(), HttpStatus.OK);
+    }
+
 }
