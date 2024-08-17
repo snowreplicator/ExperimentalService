@@ -1,0 +1,23 @@
+databaseChangeLog:
+  - changeSet:
+      id: 4
+      author: impersonal
+      changes:
+        - createTable:
+            tableName: company
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: companyname
+                  type: text
+              - column:
+                  name: companycode
+                  type: text
+                  constraints:
+                    nullable: false

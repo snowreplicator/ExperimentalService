@@ -1,0 +1,29 @@
+databaseChangeLog:
+  - changeSet:
+      id: 3
+      author: impersonal
+      changes:
+        - createTable:
+            tableName: contact
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: screenname
+                  type: text
+                  constraints:
+                    nullable: false
+                    unique: true
+                    foreignKeyName: fk_contact_user
+                    references: user(screenname)
+                    deleteCascade: true
+              - column:
+                  name: email
+                  type: text
+                  constraints:
+                    nullable: true

@@ -1,0 +1,22 @@
+databaseChangeLog:
+  - changeSet:
+      id: 5
+      author: your_name
+      changes:
+        - createTable:
+            tableName: companyuserlink
+            columns:
+              - column:
+                  name: company_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_companyuserlink_company
+                    references: company(id)
+              - column:
+                  name: user_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_companyuserlink_user
+                    references: user(id)
