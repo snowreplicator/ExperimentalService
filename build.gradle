@@ -1,0 +1,86 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '3.2.1'
+	id 'io.spring.dependency-management' version '1.1.4'
+	id 'maven-publish'
+}
+
+compileJava {
+	options.encoding = "UTF-8"
+}
+
+group = 'ru.experimentalservice'
+version = '0.0.1'
+// получение версии артефакта из version.json
+import groovy.json.JsonSlurper
+def versionJsonFile = new File("$rootDir/version.json")
+if (versionJsonFile.exists()) {
+	def versionJsonObject = new JsonSlurper().parse(versionJsonFile)
+	if (versionJsonObject != null &&
+			versionJsonObject.containsKey('major') &&
+			versionJsonObject.containsKey('minor') &&
+			versionJsonObject.containsKey('patch')) {
+		version = "${versionJsonObject.major}.${versionJsonObject.minor}.${versionJsonObject.patch}"
+		if (versionJsonObject.containsKey('revision') && versionJsonObject.revision != null)
+			version = "${version}.${versionJsonObject.revision}"
+	}
+}
+
+tasks.named('jar') {
+	enabled = false
+}
+
+
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(17)
+	}
+}
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.5.0'
+	implementation 'net.lbruun.springboot:preliquibase-spring-boot-starter:1.5.0'
+	implementation 'org.liquibase:liquibase-core'
+	implementation group: 'org.json', name: 'json', version: '20240303'
+	compileOnly 'org.projectlombok:lombok'
+	runtimeOnly 'org.postgresql:postgresql'
+	annotationProcessor 'org.projectlombok:lombok'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
+
+// добавление pom.xml в собираемый jar файл
+publishing {
+	publications {
+		mavenJava(MavenPublication) {
+			from components.java
+		}
+	}
+}
+bootJar {
+	into("META-INF/maven/$project.group/$project.name") {
+		from { generatePomFileForMavenJavaPublication }
+		rename ".*", "pom.xml"
+	}
+}
+// для получения версии
+springBoot {
+	buildInfo()
+}

@@ -1,0 +1,19 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: impersonal
+      changes:
+        - createTable:
+            tableName: commonsetting
+            columns:
+              - column:
+                  name: option
+                  type: text
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: value
+                  type: text
+                  constraints:
+                    nullable: true
