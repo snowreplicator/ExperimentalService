@@ -54,4 +54,22 @@ public class UserController {
         return new ResponseEntity<>(userService.createUserTest_v2(), HttpStatus.OK);
     }
 
+    @Operation(summary = "Тест добавления 2х пользователей с контактами", description = "Попытка добавить 2х пользователей с исключением в рамках одной транзации")
+    @PostMapping(path = "/createUserTest_v3")
+    public ResponseEntity<UsersViewModel> createUserTest_v3() {
+        return new ResponseEntity<>(userService.createUserTest_v3(), HttpStatus.OK);
+    }
+
+    @Operation(summary = "Тест добавления пользователя с контактом", description = "Попытка добавить пользователя с исключением в рамках одной транзации сталкиваем transactional методы")
+    @PostMapping(path = "/createUserTest_v4")
+    public ResponseEntity<UsersViewModel> createUserTest_v4() {
+        return new ResponseEntity<>(userService.createUserTest_v4(), HttpStatus.OK);
+    }
+
+    @Operation(summary = "Тест добавления пользователя с контактом с исключением в контакте", description = "Попытка добавить пользователя с исключением в рамках одной транзации сталкиваем transactional методы и исключение выбрасываем во втором")
+    @PostMapping(path = "/createUserTest_v5")
+    public ResponseEntity<UsersViewModel> createUserTest_v5() {
+        return new ResponseEntity<>(userService.createUserTest_v5(), HttpStatus.OK);
+    }
+
 }
