@@ -8,7 +8,7 @@ public interface UserService {
 
     UsersViewModel getUsers();
 
-    UserViewModel createUser(CreateUserDTO createPrintFormDTO);
+    UserViewModel createUser(CreateUserDTO createUserDTO);
 
     UsersViewModel createUserTest_v1();
 

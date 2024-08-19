@@ -5,11 +5,11 @@ import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
 @Data
-public class CreateUserDTO {
+public class CreateContactDTO {
 
     @NotBlank(message = "{ScreenName is required}")
     private String screenName;
 
-    private String fio;
+    private String email;
 
 }

@@ -23,7 +23,7 @@ import ru.experimentalservice.ViewModel.UsersViewModel;
 
 @Tag(name = "UserController - контроллер для управления пользователями", description = "Операции связанные пользователями")
 @RestController
-@RequestMapping("/api/setting")
+@RequestMapping("/api/user")
 @CrossOrigin(origins = "*")
 @RequiredArgsConstructor
 public class UserController {
