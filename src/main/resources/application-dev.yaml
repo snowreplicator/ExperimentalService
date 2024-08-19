@@ -1,19 +1,36 @@
 spring:
   application:
     name: experimental_service
+  # JPA datasource
   datasource:
     url: jdbc:postgresql://localhost:5432/experimentalservice_db
-    username: postgres
-    password: postgres
+    username: portal
+    password: troP4444
+    driver-class-name: org.postgresql.Driver
+    #jndi-name: dataSource
   jpa:
     hibernate:
       ddl-auto: none
     properties:
       hibernate:
         default_schema: experimentalservice
+        dialect: org.hibernate.dialect.PostgreSQLDialect  # !пришлось указать диалект
     show-sql: true
+  # JDBC datasource
+  data-collector-db:
+    #data.jdbc.repositories.enabled: false
+    data.jdbc.database: jdbc:postgresql://localhost:5432/datacollectorservice_db
+    data.jdbc.username: portal
+    data.jdbc.password: troP4444
+    driver-class-name: org.postgresql.Driver
+  data.jdbc.repositories.enabled: false
+  #data.jdbc.repositories.enabled: true
+  #data.jdbc.database: jdbc:postgresql://localhost:5432/datacollectorservice_db
+  #data.jdbc.username: portal
+  #data.jdbc.password: troP4444
+  #####
   liquibase:
-    enabled: true
+    enabled: true #!!!!!!! ошибка
     default-schema: experimentalservice
   servlet:
     multipart:
@@ -30,3 +47,4 @@ springdoc:
     
 server:
   port: 33333
+

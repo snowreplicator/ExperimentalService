@@ -7,7 +7,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import ru.experimentalservice.DTO.CreateContactDTO;
 import ru.experimentalservice.Entity.Contact;
-import ru.experimentalservice.Entity.User;
 import ru.experimentalservice.Repository.ContactRepository;
 import ru.experimentalservice.Service.Exception.DuplicateScreenNameException;
 import ru.experimentalservice.Service.Interface.ContactService;
