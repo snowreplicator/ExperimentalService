@@ -31,9 +31,19 @@ FROM
   datacollectorservice.user u
 FULL JOIN
   datacollectorservice.email e ON u.id = e.userId;
-  
-  
-  
+
+
+CREATE VIEW datacollectorservice.fio_email_list AS
+SELECT
+    u.fio AS user_fio,
+    e.email AS user_email
+FROM
+    datacollectorservice.user u
+        FULL JOIN
+    datacollectorservice.email e ON u.id = e.userId;
+
+
+
 -- insert data script:
 
 INSERT INTO datacollectorservice.user (id, fio) VALUES
